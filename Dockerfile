@@ -24,13 +24,13 @@ ARG UID=10001
 RUN adduser \
     --disabled-password \
     --gecos "" \
-    --home "/app" \
+    --home "/nonexistent" \
     --shell "/sbin/nologin" \
     --no-create-home \
     --uid "${UID}" \
     appuser && \
     mkdir -p "/app" && chown ${UID}:$(UID) "/app"
-
+ENV TRANSFORMERS_CACHE=~/.cache/huggingface/hub
 # Download dependencies as a separate step to take advantage of Docker's caching.
 # Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
 # Leverage a bind mount to requirements.txt to avoid having to copy them into
